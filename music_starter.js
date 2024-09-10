@@ -1,10 +1,12 @@
-
+let firstRun = true;
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
+
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
   background(28, 36, 28, 255)
   textFont('Verdana'); // please use CSS safe fonts
   rectMode(CENTER)
   textSize(24);
+  imageMode(CENTER);
   
    let bar_spacing = height / 10;
    let bar_height = width / 12;
@@ -12,11 +14,27 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
    let song_volume = vocal + drum + bass + other / 4;
    let bar_length = 480
    let eye_images = [];
-
-   let firstrun = true
+   let city_images = [];
+   let lightning_images = [];
+   let overlay_images = [];
    
-   if (firstrun) {
-    eye_images.push
+   if (firstRun) {
+    eye_images.push(loadImage("EyeLogo_1.png"));
+    eye_images.push(loadImage("EyeLogo_2.png"));
+    eye_images.push(loadImage("EyeLogo_3.png"));
+
+    city_images.push(loadImage("CityScape_1.png"));
+    city_images.push(loadImage("CityScape_2.png"));
+    city_images.push(loadImage("CityScape_3.png"));
+
+    lightning_images.push(loadImage("Lightning_1.png"));
+    lightning_images.push(loadImage("Lightning_2.png"));
+    lightning_images.push(loadImage("Lightning_3.png"));
+
+    overlay_images.push(loadImage("BorderFrame.png"));
+    overlay_images.push(loadImage("Arrows.png"));
+
+    firstRun = false;
    }
 
 
@@ -49,6 +67,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
     line(0, bar_steps, bar_length, bar_steps);
    }
    pop();
+
+   
  
    // bass 
    fill(50, 50, 240);
@@ -82,17 +102,24 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
    pop();
   
    push();
-   if (song_volume > 200){
+   if (song_volume > 190){
    for(var i = 1; i <= song_volume; i++){
     fill(47, 61, 47, 255);
-    stroke(0);
+    stroke(47, 61, 47, 255);
     ellipse(random(1920),random(1080),10,10);
    }
    }
- 
+
+   if(counter > 0) {
+   image(eye_images[0], 0, 0);
+   }
+   
+
    // display "words" 
    textAlign(CENTER);
    textSize(vocal);
    text(words, width/2, height/3);
+
+
 }
 
